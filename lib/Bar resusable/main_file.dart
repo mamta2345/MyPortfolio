@@ -22,12 +22,12 @@ class AdminLoginPage extends StatefulWidget {
 
 class _AdminLoginPageState extends State<AdminLoginPage> {
   Map<String, dynamic> user = {
-    'firstName': 'Mamta',
-    'lastName': 'Kumari',
-    "roll": "Flutter Developer",
-    'profileImage': null,
-    'center': 'C-DAC, Mohali',
-    'center type': 'PI',
+    // 'firstName': 'Mamta',
+    // 'lastName': 'Kumari',
+    // "roll": "Flutter Developer",
+    // 'profileImage': null,
+    // 'center': 'C-DAC, Mohali',
+    // 'center type': 'PI',
     // 'profile': AdminLoginPage(
     //   selectedButtonName: 'Admin Proflie',
     // )

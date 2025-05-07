@@ -4,27 +4,6 @@ import 'package:portifolio/Contact/contact.dart';
 import 'package:portifolio/Resume/resume.dart';
 import 'package:portifolio/Skills/Skill.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Portfolio',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        useMaterial3: true,
-      ),
-      home: const NewHome(),
-    );
-  }
-}
-
 class NewHome extends StatefulWidget {
   const NewHome({super.key});
 
@@ -35,11 +14,15 @@ class NewHome extends StatefulWidget {
 class _NewHomeState extends State<NewHome> with TickerProviderStateMixin {
   final PageController _pageController = PageController();
   late AnimationController _controller;
+  int _currentIndex = 0;
 
   int smallScreenWidthSize = 700;
 
   void changePage(int index) {
-    _pageController.jumpToPage(index);
+    setState(() {
+      _currentIndex = index;
+      _pageController.jumpToPage(index);
+    });
   }
 
   @override
@@ -118,6 +101,7 @@ class _NewHomeState extends State<NewHome> with TickerProviderStateMixin {
           Expanded(
             child: PageView(
               controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
               children: const [
                 Aboutpage(),
                 Skill(),
@@ -135,15 +119,35 @@ class _NewHomeState extends State<NewHome> with TickerProviderStateMixin {
   Widget rowMenu() {
     return Row(
       children: [
-        NavButton(title: "About", index: 0, onTap: changePage),
+        NavButton(
+            title: "About",
+            index: 0,
+            currentIndex: _currentIndex,
+            onTap: changePage),
         sizeBoxWidth(20),
-        NavButton(title: "Skills", index: 1, onTap: changePage),
+        NavButton(
+            title: "Skills",
+            index: 1,
+            currentIndex: _currentIndex,
+            onTap: changePage),
         sizeBoxWidth(20),
-        NavButton(title: "Contact", index: 2, onTap: changePage),
+        NavButton(
+            title: "Contact",
+            index: 2,
+            currentIndex: _currentIndex,
+            onTap: changePage),
         sizeBoxWidth(20),
-        NavButton(title: "Project", index: 3, onTap: changePage),
+        NavButton(
+            title: "Project",
+            index: 3,
+            currentIndex: _currentIndex,
+            onTap: changePage),
         sizeBoxWidth(20),
-        NavButton(title: "Resume", index: 4, onTap: changePage),
+        NavButton(
+            title: "Resume",
+            index: 4,
+            currentIndex: _currentIndex,
+            onTap: changePage),
       ],
     );
   }
@@ -164,29 +168,32 @@ class _NewHomeState extends State<NewHome> with TickerProviderStateMixin {
 class NavButton extends StatelessWidget {
   final String title;
   final int index;
+  final int currentIndex;
   final Function(int) onTap;
 
   const NavButton({
     super.key,
     required this.title,
     required this.index,
+    required this.currentIndex,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final bool isSelected = index == currentIndex;
+
     return TextButton(
       style: ButtonStyle(
-        overlayColor:
-            MaterialStateProperty.all(Colors.transparent), // No highlight
-        splashFactory: NoSplash.splashFactory, // No ripple
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        splashFactory: NoSplash.splashFactory,
         padding: MaterialStateProperty.all(EdgeInsets.zero),
       ),
       onPressed: () => onTap(index),
       child: Text(
         title,
-        style: const TextStyle(
-          color: Colors.black,
+        style: TextStyle(
+          color: isSelected ? Colors.black : Colors.grey,
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),

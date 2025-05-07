@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:portifolio/Reusable_widget/color.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:portifolio/AppBar/appbar.dart' show Appbarreusable;
 
 class Contact extends StatefulWidget {
   const Contact({super.key});
@@ -13,8 +17,7 @@ class Contact extends StatefulWidget {
 class _ContactState extends State<Contact> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController subjectcontroller = TextEditingController();
-
+  final TextEditingController subjectController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
 
   Future<void> sendEmail() async {
@@ -39,7 +42,7 @@ class _ContactState extends State<Contact> {
             'user_name': nameController.text,
             'user_email': emailController.text,
             "to_email": "your_email@example.com",
-            'user_subject': subjectcontroller.text,
+            'user_subject': subjectController.text,
             'user_message': messageController.text,
           }
         }),
@@ -47,160 +50,152 @@ class _ContactState extends State<Contact> {
 
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Message Sent Successfully!')),
+          const SnackBar(content: Text('Message Sent Successfully!')),
         );
         nameController.clear();
         emailController.clear();
-        subjectcontroller.clear();
+        subjectController.clear();
         messageController.clear();
       } else {
-        print('Failed to send email: ${response.body}');
+        if (kDebugMode) {
+          print('Failed to send email: ${response.body}');
+        }
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to send message')),
+          const SnackBar(content: Text('Failed to send message')),
         );
       }
     } catch (e) {
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: $e');
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: customcolor.bluLight1, // Full page color
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "GET IN TOUCH",
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+      // appBar:const Appbarreusable(),
+      backgroundColor: Colors.grey.shade300,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height > 600 ? 100 : null,
               ),
-            ),
-            SizedBox(height: 20),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 800),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  if (constraints.maxWidth < 500) {
-                    return Column(
-                      children: [
-                        inputField(
-                            "Your Name", nameController, 15, FontWeight.bold,
-                            maxline: 1),
-                        SizedBox(height: 10),
-                        inputField(
-                            "Email ID", emailController, 15, FontWeight.bold,
-                            maxline: 1),
-                      ],
-                    );
-                  } else {
-                    return Row(
-                      children: [
-                        Expanded(
-                          child: inputField(
-                              "Your Name", nameController, 15, FontWeight.bold,
-                              maxline: 1),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: inputField(
-                              "Email ID", emailController, 15, FontWeight.bold,
-                              maxline: 1),
-                        ),
-                        // SizedBox(width: 10),
-                        // Expanded(
-                        //   child: inputField("Subject ", subjectcontroller, 15,
-                        //       FontWeight.bold,
-                        //       maxline: 1),
-                        // ),
-                      ],
-                    );
-                  }
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 800),
-              child: inputField(
-                  "Subject", subjectcontroller, 15, FontWeight.bold,
-                  maxline: 1),
-            ),
-            SizedBox(height: 10),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 800),
-              child: inputField(
-                  "Your Message", messageController, 15, FontWeight.bold,
-                  maxline: 5),
-            ),
-            SizedBox(height: 20),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width < 750 ? 460 : 750,
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber,
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+              Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 800),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: LinearGradient(
+                      colors: [Colors.white, Colors.grey.shade100],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                      ),
+                    ],
                   ),
-                  onPressed: sendEmail,
-                  child: Text(
-                    "Get in Touch",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "GET IN TOUCH",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      LayoutBuilder(builder: (context, constraints) {
+                        if (constraints.maxWidth < 500) {
+                          return Column(
+                            children: [
+                              inputField("Your Name", nameController),
+                              const SizedBox(height: 10),
+                              inputField("Email ID", emailController),
+                            ],
+                          );
+                        } else {
+                          return Row(
+                            children: [
+                              Expanded(
+                                  child:
+                                      inputField("Your Name", nameController)),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                  child:
+                                      inputField("Email ID", emailController)),
+                            ],
+                          );
+                        }
+                      }),
+                      const SizedBox(height: 10),
+                      inputField("Subject", subjectController),
+                      const SizedBox(height: 10),
+                      inputField("Your Message", messageController,
+                          maxLines: 5),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber,
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: sendEmail,
+                          child: const Text(
+                            "Send Message",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Divider(color: Colors.grey),
+                    ],
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 300),
-              child: Divider(color: Colors.white),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget inputField(String text, TextEditingController controller, double size,
-      FontWeight fontWeight,
-      {required int maxline}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: TextField(
-        controller: controller,
-        maxLines: maxline,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding: EdgeInsets.all(12),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.blue),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          hintText: text,
-          hintStyle: TextStyle(
-            fontSize: size,
-            fontWeight: fontWeight,
-            color: Colors.black,
-          ),
+  Widget inputField(String hint, TextEditingController controller,
+      {int maxLines = 1}) {
+    return TextField(
+      controller: controller,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.all(12),
+        hintText: hint,
+        hintStyle: const TextStyle(fontSize: 16),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Colors.blue),
         ),
       ),
     );
