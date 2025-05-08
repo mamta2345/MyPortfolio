@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:portifolio/AppBar/appbar.dart' show Appbarreusable;
-
 class Contact extends StatefulWidget {
   const Contact({super.key});
 
@@ -73,8 +71,32 @@ class _ContactState extends State<Contact> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      // appBar:const Appbarreusable(),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            reuseImage("assets/images/logo.png", 80, 80),
+            const Spacer(),
+            // rowMenu(),
+          ],
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                theme.brightness == Brightness.dark
+                    ? Colors.grey[850]!
+                    : Colors.white,
+                theme.scaffoldBackgroundColor,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
       backgroundColor: Colors.grey.shade300,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -175,6 +197,16 @@ class _ContactState extends State<Contact> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget reuseImage(String path, double height, double width) {
+    return Image.asset(
+      path,
+      width: width,
+      height: height,
+      errorBuilder: (context, error, stackTrace) =>
+          const Icon(Icons.image_not_supported, size: 40),
     );
   }
 

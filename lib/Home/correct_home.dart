@@ -1,8 +1,8 @@
+import 'package:Portifolio/About/about.dart';
+import 'package:Portifolio/Contact/contact.dart';
+import 'package:Portifolio/Resume/resume.dart';
+import 'package:Portifolio/Skills/Skill.dart';
 import 'package:flutter/material.dart';
-import 'package:portifolio/About/about.dart';
-import 'package:portifolio/Contact/contact.dart';
-import 'package:portifolio/Resume/resume.dart';
-import 'package:portifolio/Skills/Skill.dart';
 
 class NewHome extends StatefulWidget {
   const NewHome({super.key});
