@@ -1,10 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:Portifolio/Home/correct_home.dart';
+import 'package:Portifolio/Reusable_widget/side_bar_laptop.dart';
+import 'package:Portifolio/splacescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portifolio/Home/correct_home.dart';
-import 'package:portifolio/Reusable_widget/side_bar_laptop.dart';
-import 'package:portifolio/splacescreen.dart';
+
 
 void main() {
   runApp(MyApp());
