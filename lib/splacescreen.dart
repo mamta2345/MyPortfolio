@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'package:Portifolio/Bar%20resusable/main_file.dart';
-import 'package:Portifolio/Home/correct_home.dart';
+import 'package:Portifolio/Screens/Bar%20resusable/main_file.dart';
+import 'package:Portifolio/Screens/Home/correct_home.dart';
 import 'package:flutter/material.dart';
 
 class SplaceScreen extends StatefulWidget {

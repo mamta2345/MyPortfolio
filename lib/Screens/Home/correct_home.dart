@@ -1,6 +1,6 @@
-import 'package:Portifolio/About/about.dart';
-import 'package:Portifolio/Contact/contact.dart';
-import 'package:Portifolio/Resume/resume.dart';
+import 'package:Portifolio/Screens/About/about.dart';
+import 'package:Portifolio/Screens/Contact/contact.dart';
+import 'package:Portifolio/Screens/Resume/resume.dart';
 import 'package:Portifolio/Skills/Skill.dart';
 import 'package:flutter/material.dart';
 
