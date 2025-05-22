@@ -10,7 +10,7 @@ class ResumePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          SectionTitle(title: "Education"),
+          SectionTitle(title: "EducationS"),
           TimelineTile(
             title: "Government PG College, Dharamshala",
             subtitle: "2021 – 2024",
