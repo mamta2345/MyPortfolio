@@ -14,12 +14,13 @@ class ResumePage extends StatelessWidget {
           TimelineTile(
             title: "Government PG College, Dharamshala",
             subtitle: "2021 – 2024",
-            description: "B.Tech in CSE\n> 7 CGPA",
+            description:
+                "Bachelor of Technology (B.Tech) in Computer Science and Engineering\n> 7 CGPA",
           ),
           TimelineTile(
             title: "Government Polytechnic College, Kangra",
             subtitle: "2019 – 2021",
-            description: "Diploma in CSE\n69%",
+            description: "Diploma in Computer Science and Engineering\n69%",
           ),
           SizedBox(height: 24),
           SectionTitle(title: "Experience"),
@@ -124,9 +125,7 @@ class TimelineTile extends StatelessWidget {
                 ],
                 if (bulletPoints != null) ...[
                   const SizedBox(height: 8),
-                  ...bulletPoints!
-                      .map((point) => BulletPoint(text: point))
-                      .toList(),
+                  ...bulletPoints!.map((point) => BulletPoint(text: point)),
                 ],
               ],
             ),
@@ -147,7 +146,7 @@ class BulletPoint extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("• ", style: TextStyle(fontSize: 16, height: 1.4)),
+        const Text("•", style: TextStyle(fontSize: 16, height: 1.4)),
         Expanded(
           child: Text(text, style: const TextStyle(fontSize: 14, height: 1.4)),
         ),

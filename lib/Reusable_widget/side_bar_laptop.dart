@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ThemeController extends GetxController {
-  var isDark = false.obs;
+  RxBool isDark = false.obs;
+
+  @override
+  void onInit() {
+    final Brightness systemBrightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    isDark.value = systemBrightness == Brightness.dark;
+    super.onInit();
+  }
 
   void toggleTheme() {
     isDark.value = !isDark.value;
@@ -83,7 +91,7 @@ class _SideBarLaptopState extends State<SideBarLaptop> {
           Obx(() {
             return GestureDetector(
               onTap: () {
-                themeController.toggleTheme();
+                Get.find<ThemeController>().toggleTheme();
               },
               child: Container(
                 width: 70,
